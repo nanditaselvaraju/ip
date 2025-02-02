@@ -1,8 +1,9 @@
 import java.util.Scanner;
+import java.util.ArrayList;
 
 public class Bork {
     private static final int maxTasks = 100;
-    private static Task[] tasks = new Task[maxTasks];
+    private static ArrayList<Task> tasks = new ArrayList<>();
     private static int taskCount = 0; // tracking number of tasks
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
@@ -29,6 +30,8 @@ public class Bork {
                 addDeadline(inputParts);
             } else if (command.equals("event")) {
                 addEvent(inputParts);
+            } else if (command.equals("delete")) {
+                deleteTask(inputParts);
             } else {
                 System.out.println("Unknown command.");;
             }
@@ -39,16 +42,16 @@ public class Bork {
         if (taskCount == 0) {
             System.out.println("No tasks added yet.");
         } else {
-            System.out.println("Here are the tasks in your list: ");
+            System.out.println("Here are the tasks in your list:");
             for (int i = 0; i < taskCount; i++) {
-                System.out.println((i + 1) + ". " + tasks[i]);
+                System.out.println((i + 1) + ". " + tasks.get(i));
             }
         }
     }
 
     private static void addTask(Task task) {
         if (taskCount < maxTasks) {
-            tasks[taskCount] = task;
+            tasks.add(task);
             taskCount++;
             System.out.println("Got it. I've added this task:");
             System.out.println(" " + task);
@@ -66,9 +69,9 @@ public class Bork {
         try {
             int taskIndex = Integer.parseInt(inputParts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsDone();
+                tasks.get(taskIndex).markAsDone();
                 System.out.println("Nice! I've marked this task as done:");
-                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("  " + tasks.get(taskIndex));
             } else {
                 System.out.println("Invalid task number.");
             }
@@ -85,9 +88,9 @@ public class Bork {
         try {
             int taskIndex = Integer.parseInt(inputParts[1]) - 1;
             if (taskIndex >= 0 && taskIndex < taskCount) {
-                tasks[taskIndex].markAsNotDone();
+                tasks.get(taskIndex).markAsNotDone();
                 System.out.println("OK, I've marked this task as not done yet:");
-                System.out.println("  " + tasks[taskIndex]);
+                System.out.println("  " + tasks.get(taskIndex));
             } else {
                 System.out.println("Invalid task number.");
             }
@@ -120,6 +123,27 @@ public class Bork {
         String[] details = inputParts[1].split(" /from ", 2);
         String[] timeDetails = details[1].split(" /to ", 2);
         addTask(new Event(details[0], timeDetails[0], timeDetails[1]));
+    }
+
+    private static void deleteTask(String[] inputParts) {
+        if (inputParts.length < 2) {
+            System.out.println("Please specify a task number.");
+            return;
+        }
+        try {
+            int taskIndex = Integer.parseInt(inputParts[1]) - 1;
+            if (taskIndex >= 0 && taskIndex < taskCount) {
+                Task removedTask = tasks.remove(taskIndex);
+                taskCount--;
+                System.out.println("Noted. I've removed this task:");
+                System.out.println("  " + removedTask.toString());
+                System.out.println("Now you have " + taskCount + " tasks in the list.");
+            } else {
+                System.out.println("Invalid task number.");
+            }
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid format! Use: delete <task number>");
+        }
     }
 }
 
