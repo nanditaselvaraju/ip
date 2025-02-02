@@ -23,8 +23,14 @@ public class Bork {
                 markTask(inputParts);
             } else if (command.equals("unmark")) {
                 unmarkTask(inputParts);
+            } else if (command.equals("todo")) {
+                addToDo(inputParts);
+            } else if (command.equals("deadline")) {
+                addDeadline(inputParts);
+            } else if (command.equals("event")) {
+                addEvent(inputParts);
             } else {
-                addTask(input);
+                System.out.println("Unknown command.");;
             }
         }
         scanner.close();
@@ -40,11 +46,13 @@ public class Bork {
         }
     }
 
-    private static void addTask(String description) {
+    private static void addTask(Task task) {
         if (taskCount < maxTasks) {
-            tasks[taskCount] = new Task(description);
+            tasks[taskCount] = task;
             taskCount++;
-            System.out.println("added: " + description);
+            System.out.println("Got it. I've added this task:");
+            System.out.println(" " + task);
+            System.out.println("Now you have " + taskCount + " tasks in the list.");
         } else {
             System.out.println("Task list is full!");
         }
@@ -86,6 +94,32 @@ public class Bork {
         } catch (NumberFormatException e) {
             System.out.println("Invalid format! Use: unmark <task number>");
         }
+    }
+
+    private static void addToDo(String[] inputParts) {
+        if (inputParts.length < 2) {
+            System.out.println("Description of a todo cannot be empty.");
+            return;
+        }
+        addTask(new ToDo(inputParts[1]));
+    }
+
+    private static void addDeadline(String[] inputParts) {
+        if (inputParts.length < 2 || !inputParts[1].contains("/by")) {
+            System.out.println("Invalid format! Use: deadline <description> /by <date>");
+            return;
+        }
+        String[] details = inputParts[1].split(" /by ", 2);
+        addTask(new Deadline(details[0], details[1]));
+    }
+    private static void addEvent(String[] inputParts) {
+        if (inputParts.length < 2 || !inputParts[1].contains("/from") || !inputParts[1].contains("/to")) {
+            System.out.println("Invalid format! Use: event <description> /from <start time> /to <end time>");
+            return;
+        }
+        String[] details = inputParts[1].split(" /from ", 2);
+        String[] timeDetails = details[1].split(" /to ", 2);
+        addTask(new Event(details[0], timeDetails[0], timeDetails[1]));
     }
 }
 
