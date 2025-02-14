@@ -1,3 +1,4 @@
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.io.BufferedWriter;
@@ -6,11 +7,15 @@ import java.io.FileNotFoundException;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 
 public class Bork {
     private static final String FILE_PATH = "data/bork.txt";
     private static List<Task> tasks = new ArrayList<>();
+    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     public static void main(String[] args) {
         loadTasks();
         System.out.println("Hello! I'm Bork");
@@ -69,13 +74,13 @@ public class Bork {
                         if (parts.length < 4) {
                             continue;
                         }
-                        task = new Deadline(parts[2], parts[3]);
+                        task = new Deadline(parts[2], LocalDateTime.parse(parts[3], INPUT_FORMAT));
                         break;
                     case "E":
                         if (parts.length < 5) {
                             continue;
                         }
-                        task = new Event(parts[2], parts[3], parts[4]);
+                        task = new Event(parts[2], LocalDateTime.parse(parts[3], INPUT_FORMAT), LocalDateTime.parse(parts[4], INPUT_FORMAT));
                         break;
                     default:
                         continue;
@@ -167,20 +172,38 @@ public class Bork {
 
     private static void addDeadline(String[] inputParts) {
         if (inputParts.length < 2 || !inputParts[1].contains("/by")) {
-            System.out.println("Invalid format! Use: deadline <description> /by <date>");
+            System.out.println("Invalid format! Use: deadline <description> /by <yyyy-MM-dd HHmm>");
             return;
         }
         String[] details = inputParts[1].split(" /by ", 2);
-        addTask(new Deadline(details[0], details[1]));
+        if (!isValidDateTime(details[1])) {
+            System.out.println("Invalid date format! Use: yyyy-MM-dd HHmm");
+            return;
+        }
+        addTask(new Deadline(details[0], LocalDateTime.parse(details[1], INPUT_FORMAT)));
     }
     private static void addEvent(String[] inputParts) {
         if (inputParts.length < 2 || !inputParts[1].contains("/from") || !inputParts[1].contains("/to")) {
-            System.out.println("Invalid format! Use: event <description> /from <start time> /to <end time>");
+            System.out.println("Invalid format! Use: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
             return;
         }
         String[] details = inputParts[1].split(" /from ", 2);
         String[] timeDetails = details[1].split(" /to ", 2);
-        addTask(new Event(details[0], timeDetails[0], timeDetails[1]));
+
+        if (!isValidDateTime(timeDetails[0]) || !isValidDateTime(timeDetails[1])) {
+            System.out.println("Invalid date format! Use: yyyy-MM-dd HHmm");
+            return;
+        }
+        addTask(new Event(details[0], LocalDateTime.parse(timeDetails[0], INPUT_FORMAT), LocalDateTime.parse(timeDetails[1], INPUT_FORMAT)));
+    }
+
+    private static boolean isValidDateTime(String dateTime) {
+        try {
+            LocalDateTime.parse(dateTime, INPUT_FORMAT);
+            return true;
+        } catch (DateTimeParseException e) {
+            return false;
+        }
     }
 
     private static void deleteTask(String[] inputParts) {
