@@ -13,7 +13,7 @@ public class Deadline extends Task {
     }
 
     @Override
-    public String toFileFormat() {
+    public String toFileString() {
         return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(INPUT_FORMAT);
     }
 

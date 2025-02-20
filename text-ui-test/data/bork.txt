@@ -1,6 +1,0 @@
-T | 0 | borrow book
-D | 0 | return book | 2025-03-10 2359
-E | 0 | project meeting | 2025-04-01 1400 | 2025-04-01 1600
-T | 0 | borrow book
-D | 0 | return book | 2025-03-10 2359
-E | 0 | project meeting | 2025-04-01 1400 | 2025-04-01 1600

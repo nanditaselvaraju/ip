@@ -7,7 +7,7 @@ public class ToDo extends Task {
     }
 
     @Override
-    public String toFileFormat() {
+    public String toFileString() {
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 
