@@ -14,16 +14,12 @@ public class Event extends Task {
     }
 
     @Override
-    public String toFileString() {
-        String startStr = (start != null) ? start.format(INPUT_FORMAT) : "N/A";
-        String endStr = (end != null) ? end.format(INPUT_FORMAT) : "N/A";
+    public String toFileFormat() {
         return "E | " + (isDone ? "1" : "0") + " | " + description + " | " + start.format(INPUT_FORMAT) + " | " + end.format(INPUT_FORMAT);
     }
 
     @Override
     public String toString() {
-        String startStr = (start != null) ? start.format(OUTPUT_FORMAT) : "N/A";
-        String endStr = (end != null) ? end.format(OUTPUT_FORMAT) : "N/A";
         return "[E]" + super.toString() + " (from: " + start.format(OUTPUT_FORMAT) + " to: " + end.format(OUTPUT_FORMAT) + ")";
     }
 }

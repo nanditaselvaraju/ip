@@ -1,39 +1,38 @@
-Do you want to reset the task list? (yes/no):
-Task list has been reset. Starting fresh!
 Hello! I'm Bork
 What can I do for you?
 Got it. I've added this task:
- [T][ ] buy groceries
+ [T][ ] borrow book
 Now you have 1 tasks in the list.
 Got it. I've added this task:
- [T][ ] read book
+ [D][ ] return book (by: Mar 10 2025, 11:59 pm)
 Now you have 2 tasks in the list.
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Mar 10 2025, 11:59 pm)
 Got it. I've added this task:
- [D][ ] submit report (by: Oct 15 2025, 6:00 pm)
+ [E][ ] project meeting (from: Apr 1 2025, 2:00 pm to: Apr 1 2025, 4:00 pm)
 Now you have 3 tasks in the list.
-Got it. I've added this task:
- [E][ ] team meeting (from: Oct 10 2025, 2:00 pm to: Oct 10 2025, 3:00 pm)
-Now you have 4 tasks in the list.
-Here are the tasks in you list:
-1. [T][ ] buy groceries
-2. [T][ ] read book
-3. [D][ ] submit report (by: Oct 15 2025, 6:00 pm)
-4. [E][ ] team meeting (from: Oct 10 2025, 2:00 pm to: Oct 10 2025, 3:00 pm)
+Here are the tasks in your list:
+1. [T][ ] borrow book
+2. [D][ ] return book (by: Mar 10 2025, 11:59 pm)
+3. [E][ ] project meeting (from: Apr 1 2025, 2:00 pm to: Apr 1 2025, 4:00 pm)
 Nice! I've marked this task as done:
- [T][X] buy groceries
+  [T][X] borrow book
+Nice! I've marked this task as done:
+  [D][X] return book (by: Mar 10 2025, 11:59 pm)
 OK, I've marked this task as not done yet:
- [T][ ] read book
+  [T][ ] borrow book
 Here are the tasks in your list:
-1. [T][X] buy groceries
-2. [T][ ] read book
-3. [D][ ] submit report (by: Oct 15 2025, 6:00 pm)
-4. [E][ ] team meeting (from: Oct 10 2025, 2:00 pm to: Oct 10 2025, 3:00 pm)
+1. [T][ ] borrow book
+2. [D][X] return book (by: Mar 10 2025, 11:59 pm)
+3. [E][ ] project meeting (from: Apr 1 2025, 2:00 pm to: Apr 1 2025, 4:00 pm)
 Noted. I've removed this task:
- [D][ ] submit report (by: Oct 15 2025, 6:00 pm)
-Now you have 3 tasks in the list.
+  [D][X] return book (by: Mar 10 2025, 11:59 pm)
+Now you have 2 tasks in the list.
 Here are the tasks in your list:
-1. [T][X] buy groceries
-2. [T][ ] read book
-3. [E][ ] team meeting (from: Oct 10 2025, 2:00 pm to: Oct 10 2025, 3:00 pm)
+1. [T][ ] borrow book
+2. [E][ ] project meeting (from: Apr 1 2025, 2:00 pm to: Apr 1 2025, 4:00 pm)
 Bye. Hope to see you again soon!
+
+
 

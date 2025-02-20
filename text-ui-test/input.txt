@@ -1,13 +1,13 @@
-yes
-todo buy groceries
-todo read book
-deadline submit report /by 2025-10-15 1800
-event team meeting /from 2025-10-10 1400 /to 2023-10-10 1500
+todo borrow book
+deadline return book /by 2025-03-10 2359
+list
+event project meeting /from 2025-04-01 1400 /to 2025-04-01 1600
 list
 mark 1
-unmark 2
+mark 2
+unmark 1
 list
-delete 3
+delete 2
 list
 bye
 
