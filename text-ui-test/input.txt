@@ -1,4 +1,3 @@
-yes
 todo buy groceries
 todo read book
 deadline submit report /by 2025-10-15 1800

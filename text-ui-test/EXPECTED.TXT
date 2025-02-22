@@ -1,17 +1,15 @@
-Do you want to reset the task list? (yes/no):
-Task list has been reset. Starting fresh!
 Hello! I'm Bork
 What can I do for you?
-Got it. I've added this task:
+Got it. I've added this bork.task:
  [T][ ] buy groceries
 Now you have 1 tasks in the list.
-Got it. I've added this task:
+Got it. I've added this bork.task:
  [T][ ] read book
 Now you have 2 tasks in the list.
-Got it. I've added this task:
+Got it. I've added this bork.task:
  [D][ ] submit report (by: Oct 15 2025, 6:00 pm)
 Now you have 3 tasks in the list.
-Got it. I've added this task:
+Got it. I've added this bork.task:
  [E][ ] team meeting (from: Oct 10 2025, 2:00 pm to: Oct 10 2025, 3:00 pm)
 Now you have 4 tasks in the list.
 Here are the tasks in you list:
@@ -19,16 +17,16 @@ Here are the tasks in you list:
 2. [T][ ] read book
 3. [D][ ] submit report (by: Oct 15 2025, 6:00 pm)
 4. [E][ ] team meeting (from: Oct 10 2025, 2:00 pm to: Oct 10 2025, 3:00 pm)
-Nice! I've marked this task as done:
+Nice! I've marked this bork.task as done:
  [T][X] buy groceries
-OK, I've marked this task as not done yet:
+OK, I've marked this bork.task as not done yet:
  [T][ ] read book
 Here are the tasks in your list:
 1. [T][X] buy groceries
 2. [T][ ] read book
 3. [D][ ] submit report (by: Oct 15 2025, 6:00 pm)
 4. [E][ ] team meeting (from: Oct 10 2025, 2:00 pm to: Oct 10 2025, 3:00 pm)
-Noted. I've removed this task:
+Noted. I've removed this bork.task:
  [D][ ] submit report (by: Oct 15 2025, 6:00 pm)
 Now you have 3 tasks in the list.
 Here are the tasks in your list:

@@ -1,3 +1,7 @@
+package bork.command;
+
+import bork.exception.BorkException;
+
 public class Parser {
     public static Command parse(String input) throws BorkException {
         String[] parts = input.split(" ", 2);
@@ -24,7 +28,7 @@ public class Parser {
             case "delete":
                 return new DeleteCommand(arguments);
             default:
-                throw new BorkException("Unknown command.");
+                throw new BorkException("Unknown bork.command.");
         }
     }
 }

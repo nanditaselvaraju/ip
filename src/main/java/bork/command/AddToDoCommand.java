@@ -1,3 +1,12 @@
+package bork.command;
+
+import bork.task.Task;
+import bork.task.TaskList;
+import bork.task.ToDo;
+import bork.ui.UserInterface;
+import bork.storage.Storage;
+import bork.exception.BorkException;
+
 public class AddToDoCommand extends Command {
     private String description;
 

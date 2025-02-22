@@ -1,4 +1,11 @@
-import java.util.Scanner;
+package bork.core;
+
+import bork.command.Command;
+import bork.command.Parser;
+import bork.task.TaskList;
+import bork.exception.BorkException;
+import bork.storage.Storage;
+import bork.ui.UserInterface;
 
 public class Bork {
     private Storage storage;
@@ -32,15 +39,7 @@ public class Bork {
         }
     }
 
-    public static void main(String[] args) throws BorkException {
-        Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you want to reset the task list? (yes/no): ");
-        String input = scanner.nextLine().trim().toLowerCase();
-
-        Bork bork = new Bork("data/bork.txt");
-        if (input.equals("yes")) {
-            new ResetCommand().execute(bork.tasks, bork.ui, bork.storage);
-        }
-        bork.run();
+    public static void main(String[] args) {
+        new Bork("data/bork.txt").run();
     }
 }

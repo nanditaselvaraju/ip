@@ -1,3 +1,8 @@
+package bork.ui;
+
+import bork.task.Task;
+import bork.task.TaskList;
+
 import java.util.Scanner;
 
 public class UserInterface {
@@ -25,17 +30,17 @@ public class UserInterface {
     }
 
     public void showLoadingError() {
-        System.out.println("Error loading tasks. Starting with an empty task list.");
+        System.out.println("Error loading tasks. Starting with an empty bork.task list.");
     }
 
     public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this task:");
+        System.out.println("Got it. I've added this bork.task:");
         System.out.println(" " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
 
     public void showTaskRemoved(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this task:");
+        System.out.println("Noted. I've removed this bork.task:");
         System.out.println(" " + task);
         System.out.println("Now you have " + taskCount + " tasks in the list.");
     }
@@ -52,12 +57,12 @@ public class UserInterface {
     }
 
     public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this task as done:");
+        System.out.println("Nice! I've marked this bork.task as done:");
         System.out.println(" " + task);
     }
 
     public void showUnmarkedTask(Task task) {
-        System.out.println("OK, I've marked this task as not done yet:");
+        System.out.println("OK, I've marked this bork.task as not done yet:");
         System.out.println(" " + task);
     }
 
