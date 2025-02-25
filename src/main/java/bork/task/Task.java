@@ -7,23 +7,47 @@ public abstract class Task {
     protected String description;
     protected boolean isDone;
 
+    /**
+     * Constructs a Task with the specified description.
+     * The task is initially not marked as done.
+     *
+     * @param description The description of the task.
+     */
     public Task(String description) {
         this.description = description;
         this.isDone = false;
     }
 
+    /**
+     * Marks the task as done.
+     */
     public void markAsDone() {
         isDone = true;
     }
 
+    /**
+     * Marks the task as not done.
+     */
     public void markAsNotDone() {
         isDone = false;
     }
 
+    /**
+     * Returns the status of the task.
+     *
+     * @return "X" if the task is done, otherwise a space (" ").
+     */
     public String getStatus() {
         return (isDone ? "X" : " ");
     }
 
+    /**
+     * Creates a Task object from a string representation stored in a file.
+     * The method parses the task type and details from the file format.
+     *
+     * @param fileString The string representation of the task from a file.
+     * @return A corresponding Task object, or {@code null} if the format is invalid.
+     */
     public static Task fromFileString(String fileString) {
         String[] parts = fileString.split(" \\| ");
         if (parts.length < 3) {

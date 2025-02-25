@@ -3,6 +3,14 @@ package bork.command;
 import bork.exception.BorkException;
 
 public class Parser {
+
+    /**
+     * Parses the user input and returns the corresponding Command object.
+     *
+     * @param input The raw input string entered by the user.
+     * @return The corresponding Command object based on the input.
+     * @throws BorkException If the input command is not recognised.
+     */
     public static Command parse(String input) throws BorkException {
         String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();

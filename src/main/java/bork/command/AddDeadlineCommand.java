@@ -15,6 +15,13 @@ public class AddDeadlineCommand extends Command {
     private String description;
     private LocalDateTime deadline;
 
+    /**
+     * Constructs an {@code AddDeadlineCommand} by parsing the provided arguments.
+     * The arguments must contain a description and a deadline in the format {@code yyyy-MM-dd HHmm}.
+     *
+     * @param arguments The command arguments containing the task description and deadline.
+     * @throws BorkException If the arguments are missing or the date format is incorrect.
+     */
     public AddDeadlineCommand(String arguments) throws BorkException {
         if (arguments.isEmpty() || !arguments.contains("/by")) {
             throw new BorkException("Invalid format! Use: deadline <description> /by <yyyy-MM-dd HHmm>");
@@ -28,6 +35,15 @@ public class AddDeadlineCommand extends Command {
         }
     }
 
+    /**
+     * Executes the command by added a {@link Deadline} task to the task list.
+     * The new task is then displayed to the user and saved to storage.
+     *
+     * @param tasks The list of tasks to operate on.
+     * @param ui The user interface to display messages.
+     * @param storage The storage system to save or load tasks.
+     * @throws BorkException If an error occurs while saving the task.
+     */
     @Override
     public void execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
         Task task = new Deadline(description, deadline);

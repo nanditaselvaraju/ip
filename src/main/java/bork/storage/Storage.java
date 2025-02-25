@@ -19,6 +19,13 @@ public class Storage {
         this.filePath = filePath;
     }
 
+    /**
+     * Loads tasks from the specified file.
+     * If the file does not exist, an empty list is returned.
+     *
+     * @return A list of tasks loaded from the file.
+     * @throws BorkException If an error occurs while loading tasks.
+     */
     public List<Task> load() throws BorkException {
         List<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
@@ -41,6 +48,12 @@ public class Storage {
         return tasks;
     }
 
+    /**
+     * Saves the given list of tasks to the file.
+     *
+     * @param tasks The TaskList containing tasks to be saved.
+     * @throws BorkException If an error occurs while writing to the file.
+     */
     public void save(TaskList tasks) throws BorkException {
         try (FileWriter writer = new FileWriter(filePath)) {
             for (Task task : tasks) {
