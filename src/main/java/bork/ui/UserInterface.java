@@ -4,6 +4,7 @@ import bork.task.Task;
 import bork.task.TaskList;
 
 import java.util.Scanner;
+import java.util.List;
 
 public class UserInterface {
     private Scanner scanner;
@@ -120,5 +121,32 @@ public class UserInterface {
      */
     public void showGoodbye() {
         System.out.println("Bye. Hope to see you again soon!");
+    }
+
+    /**
+     * Displays a message to the standard output.
+     *
+     * @param message The message to be displayed.
+     */
+    public void showMessage(String message) {
+        System.out.println(message);
+    }
+
+    /**
+     * Displays a list of matching tasks.
+     * If the list is empty, a message indicating no matches is shown.
+     * Otherwise the tasks are displayed with their corresponding index.
+     *
+     * @param tasks The list of matching tasks to be displayed.
+     */
+    public void showMatchingTasks(List<Task> tasks) {
+        if (tasks.isEmpty()) {
+            showMessage("No matching tasks found.");
+        } else {
+            showMessage("Here are the matching tasks in your list:");
+            for (int i = 0; i < tasks.size(); i++) {
+                showMessage((i + 1) + ". " + tasks.get(i));
+            }
+        }
     }
 }

@@ -35,6 +35,8 @@ public class Parser {
                 return new AddEventCommand(arguments);
             case "delete":
                 return new DeleteCommand(arguments);
+            case "find":
+                return new FindCommand(arguments);
             default:
                 throw new BorkException("Unknown bork.command.");
         }

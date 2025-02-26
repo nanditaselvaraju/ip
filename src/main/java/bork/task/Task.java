@@ -19,6 +19,15 @@ public abstract class Task {
     }
 
     /**
+     * Returns the description of the object.
+     *
+     * @return The description as a string.
+     */
+    public String getDescription() {
+        return description;
+    }
+
+    /**
      * Marks the task as done.
      */
     public void markAsDone() {
