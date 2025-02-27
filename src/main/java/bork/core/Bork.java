@@ -57,6 +57,13 @@ public class Bork {
     }
 
     /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Bork heard: " + input;
+    }
+
+    /**
      * The main methods to start the Bork application.
      * Initializes and runs the application with the specified file path.
      *
