@@ -1,12 +1,15 @@
 package bork.command;
 
+import bork.exception.BorkException;
+import bork.storage.Storage;
 import bork.task.Task;
 import bork.task.TaskList;
 import bork.ui.UserInterface;
-import bork.storage.Storage;
-import bork.exception.BorkException;
 
-
+/**
+ * Represents a command to mark a task as done.
+ * Updates the task status, notifies the user, and saves the change.
+ */
 public class MarkCommand extends Command {
     private int taskIndex;
 
@@ -20,7 +23,7 @@ public class MarkCommand extends Command {
         try {
             this.taskIndex = Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
-            throw new BorkException("Invalid bork.task number.");
+            throw new BorkException("Invalid task number.");
         }
     }
 
@@ -36,7 +39,7 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
-            throw new BorkException("Invalid bork.task number.");
+            throw new BorkException("Invalid task number.");
         }
         Task task = tasks.get(taskIndex);
         task.markAsDone();
@@ -44,5 +47,3 @@ public class MarkCommand extends Command {
         storage.save(tasks);
     }
 }
-
-

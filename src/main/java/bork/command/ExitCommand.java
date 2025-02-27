@@ -1,9 +1,13 @@
 package bork.command;
 
+import bork.storage.Storage;
 import bork.task.TaskList;
 import bork.ui.UserInterface;
-import bork.storage.Storage;
 
+/**
+ * Represents a command to exit the application
+ * Displays a goodbye message before termination.
+ */
 public class ExitCommand extends Command {
 
     /**

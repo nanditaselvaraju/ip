@@ -1,10 +1,14 @@
 package bork.command;
 
+import bork.exception.BorkException;
+import bork.storage.Storage;
 import bork.task.TaskList;
 import bork.ui.UserInterface;
-import bork.storage.Storage;
-import bork.exception.BorkException;
 
+/**
+ * Represents an abstract command that can be executed.
+ * Commands interact with the task list, user interface, and storage.
+ */
 public abstract class Command {
 
     /**
@@ -17,6 +21,13 @@ public abstract class Command {
      * @throws BorkException If an error occurs during execution.
      */
     public abstract void execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException;
+
+    /**
+     * Determines whether this command causes the application to exit.
+     * By default, commands do not exit the application.
+     *
+     * @return {@code false}, indicating that the application should continue running.
+     */
     public boolean isExit() {
         return false;
     }

@@ -3,6 +3,10 @@ package bork.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a description and completion status.
+ * Subclasses may define specific types of tasks.
+ */
 public abstract class Task {
     protected String description;
     protected boolean isDone;
@@ -65,24 +69,27 @@ public abstract class Task {
 
         Task task;
         switch (parts[0]) {
-            case "T":
-                task = new ToDo(parts[2]);
-                break;
-            case "D":
-                if (parts.length < 4) {
-                    return null;
-                }
-                task = new Deadline(parts[2], LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
-                break;
-            case "E":
-                if (parts.length < 5) {
-                    return null;
-                }
-                task = new Event(parts[2], LocalDateTime.parse(parts[3], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
-                        LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
-                break;
-            default:
+        case "T":
+            task = new ToDo(parts[2]);
+            break;
+        case "D":
+            if (parts.length < 4) {
                 return null;
+            }
+            task = new Deadline(parts[2], LocalDateTime.parse(parts[3],
+                    DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+            break;
+        case "E":
+            if (parts.length < 5) {
+                return null;
+            }
+            task = new Event(parts[2],
+                        LocalDateTime.parse(parts[3],
+                        DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")),
+                        LocalDateTime.parse(parts[4], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm")));
+            break;
+        default:
+            return null;
         }
         if (parts[1].equals("1")) {
             task.markAsDone();
@@ -90,6 +97,11 @@ public abstract class Task {
         return task;
     }
 
+    /**
+     * Returns a string representation of the task formatted for file storage.
+     *
+     * @return A formatted string representation of the task.
+     */
     public abstract String toFileString();
 
     @Override

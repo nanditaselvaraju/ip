@@ -2,11 +2,15 @@ package bork.core;
 
 import bork.command.Command;
 import bork.command.Parser;
-import bork.task.TaskList;
 import bork.exception.BorkException;
 import bork.storage.Storage;
+import bork.task.TaskList;
 import bork.ui.UserInterface;
 
+/**
+ * Represents the core logic of the Bork application.
+ * Handles initialization, command execution, and user interactions.
+ */
 public class Bork {
     private Storage storage;
     private TaskList tasks;
@@ -14,7 +18,7 @@ public class Bork {
 
     /**
      * Constructs a new Bork instance.
-     * Initialises the user interface, loads tasks from storage, and handles
+     * Initializes the user interface, loads tasks from storage, and handles
      * any potential loading errors.
      *
      * @param filePath The file path where task data is stored.
@@ -53,8 +57,8 @@ public class Bork {
     }
 
     /**
-     * the main methods to start the Bork application.
-     * Initialises and runs the application with the specified file path.
+     * The main methods to start the Bork application.
+     * Initializes and runs the application with the specified file path.
      *
      * @param args Command line arguments
      */

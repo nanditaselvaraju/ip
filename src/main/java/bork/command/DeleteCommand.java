@@ -1,11 +1,15 @@
 package bork.command;
 
+import bork.exception.BorkException;
+import bork.storage.Storage;
 import bork.task.Task;
 import bork.task.TaskList;
 import bork.ui.UserInterface;
-import bork.storage.Storage;
-import bork.exception.BorkException;
 
+/**
+ * Represents a command to delete a task from the task list.
+ * Removes the specified task, updates the storage, and notifies the user.
+ */
 public class DeleteCommand extends Command {
     private int taskIndex;
 
@@ -35,7 +39,7 @@ public class DeleteCommand extends Command {
     @Override
     public void execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
-            throw new BorkException("Invalid bork.task number.");
+            throw new BorkException("Invalid task number.");
         }
         Task removedTask = tasks.remove(taskIndex);
         ui.showTaskRemoved(removedTask, tasks.size());

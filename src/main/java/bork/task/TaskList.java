@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+/**
+ * Represents a list of tasks.
+ * Provides methods to add, remove, retrieve, and iterate over tasks.
+ */
 public class TaskList implements Iterable<Task> {
     private List<Task> tasks;
 

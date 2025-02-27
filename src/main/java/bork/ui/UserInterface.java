@@ -1,11 +1,14 @@
 package bork.ui;
 
+import java.util.List;
+import java.util.Scanner;
+
 import bork.task.Task;
 import bork.task.TaskList;
 
-import java.util.Scanner;
-import java.util.List;
-
+/**
+ * Handles user interaction, including displaying messages and reading input.
+ */
 public class UserInterface {
     private Scanner scanner;
 
@@ -53,13 +56,13 @@ public class UserInterface {
      * Displays an error message if there is an issue loading tasks from storage.
      */
     public void showLoadingError() {
-        System.out.println("Error loading tasks. Starting with an empty bork.task list.");
+        System.out.println("Error loading tasks. Starting with an empty task list.");
     }
 
     /**
      * Displays a message confirming that a task has been added.
      *
-     * @param task The task that was added/
+     * @param task The task that was added.
      * @param taskCount The total number of tasks after adding the new task.
      */
     public void showTaskAdded(Task task, int taskCount) {
@@ -72,7 +75,7 @@ public class UserInterface {
      * Displays a message confirming that a task has been removed.
      *
      * @param task The task that was removed.
-     * @param taskCount THe total number of tasks remaining after removing the task.
+     * @param taskCount The total number of tasks remaining after removing the task.
      */
     public void showTaskRemoved(Task task, int taskCount) {
         System.out.println("Noted. I've removed this bork.task:");

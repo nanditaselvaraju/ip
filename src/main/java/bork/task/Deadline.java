@@ -3,10 +3,15 @@ package bork.task;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * Represents a task with a specific deadline.
+ * Includes a description and a due date/time.
+ */
 public class Deadline extends Task {
-    protected LocalDateTime deadline;
     private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+
+    protected LocalDateTime deadline;
 
     /**
      * Constructs a Deadline task with the given description and deadline.

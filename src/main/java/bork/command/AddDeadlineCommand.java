@@ -1,16 +1,20 @@
 package bork.command;
 
-import bork.task.Task;
-import bork.task.TaskList;
-import bork.task.Deadline;
-import bork.ui.UserInterface;
-import bork.storage.Storage;
-import bork.exception.BorkException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import bork.exception.BorkException;
+import bork.storage.Storage;
+import bork.task.Deadline;
+import bork.task.Task;
+import bork.task.TaskList;
+import bork.ui.UserInterface;
+
+/**
+ * Represents a command to add a deadline task.
+ * Parses the user input to extract the description and deadline.
+ */
 public class AddDeadlineCommand extends Command {
     private String description;
     private LocalDateTime deadline;
@@ -36,7 +40,7 @@ public class AddDeadlineCommand extends Command {
     }
 
     /**
-     * Executes the command by added a {@link Deadline} task to the task list.
+     * Executes the command by adding a {@link Deadline} task to the task list.
      * The new task is then displayed to the user and saved to storage.
      *
      * @param tasks The list of tasks to operate on.

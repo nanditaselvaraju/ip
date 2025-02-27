@@ -1,9 +1,5 @@
 package bork.storage;
 
-import bork.task.Task;
-import bork.task.TaskList;
-import bork.exception.BorkException;
-
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -12,10 +8,22 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import bork.exception.BorkException;
+import bork.task.Task;
+import bork.task.TaskList;
+
+/**
+ * Handles loading and saving tasks to a file.
+ */
 public class Storage {
     private String filePath;
 
-    public Storage (String filePath) {
+    /**
+     * Constructs a Storage object with the specified file path.
+     *
+     * @param filePath The file path where tasks are stored.
+     */
+    public Storage(String filePath) {
         this.filePath = filePath;
     }
 

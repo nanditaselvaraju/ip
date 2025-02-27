@@ -1,11 +1,14 @@
 package bork.command;
 
+import bork.exception.BorkException;
+import bork.storage.Storage;
 import bork.task.TaskList;
 import bork.ui.UserInterface;
-import bork.storage.Storage;
-import bork.exception.BorkException;
 
-
+/**
+ * Represents a command to reset the task list.
+ * Clears all tasks, saves the empty list, and notifies the user.
+ */
 public class ResetCommand extends Command {
 
     /**
@@ -29,6 +32,7 @@ public class ResetCommand extends Command {
      *
      * @return {@code false}, indicating that the application should continue running.
      */
+    @Override
     public boolean isExit() {
         return false;
     }

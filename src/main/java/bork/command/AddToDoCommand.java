@@ -1,24 +1,28 @@
 package bork.command;
 
+import bork.exception.BorkException;
+import bork.storage.Storage;
 import bork.task.Task;
 import bork.task.TaskList;
 import bork.task.ToDo;
 import bork.ui.UserInterface;
-import bork.storage.Storage;
-import bork.exception.BorkException;
 
+/**
+ * Represents a command to add a ToDo task.
+ * Parses the user input to extract the task description.
+ */
 public class AddToDoCommand extends Command {
     private String description;
 
     /**
-     * Constructs an {@code AddToDoCommand} by parsing the provided arguemnts.
+     * Constructs an {@code AddToDoCommand} by parsing the provided arguments.
      * The argument must contain a description of the ToDo task.
      *
      * @param arguments The command arguments containing the description.
      * @throws BorkException If the description is empty.
      */
     public AddToDoCommand(String arguments) throws BorkException {
-        if(arguments.isEmpty()) {
+        if (arguments.isEmpty()) {
             throw new BorkException("Description of a todo cannot be empty.");
         }
         this.description = arguments;

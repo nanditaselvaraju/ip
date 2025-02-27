@@ -1,13 +1,17 @@
 package bork.command;
 
+import bork.storage.Storage;
 import bork.task.TaskList;
 import bork.ui.UserInterface;
-import bork.storage.Storage;
 
+/**
+ * Represents a command to list all tasks in the task list.
+ * Displays the curren tasks to the user.
+ */
 public class ListCommand extends Command {
 
     /**
-     * Executes the list command by dsiaplying all tasks in the task list.
+     * Executes the list command by displalying all tasks in the task list.
      *
      * @param tasks The list of tasks to operate on.
      * @param ui The user interface to display messages.

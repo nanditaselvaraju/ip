@@ -2,6 +2,10 @@ package bork.command;
 
 import bork.exception.BorkException;
 
+/**
+ * Parses the user input and returns the corresponding command object.
+ * Determines the appropriate action based on user input.
+ */
 public class Parser {
 
     /**
@@ -17,28 +21,28 @@ public class Parser {
         String arguments = parts.length > 1 ? parts[1] : "";
 
         switch (command) {
-            case "reset":
-                return new ResetCommand();
-            case "bye":
-                return new ExitCommand();
-            case "list":
-                return new ListCommand();
-            case "mark":
-                return new MarkCommand(arguments);
-            case "unmark":
-                return new UnmarkCommand(arguments);
-            case "todo":
-                return new AddToDoCommand(arguments);
-            case "deadline":
-                return new AddDeadlineCommand(arguments);
-            case "event":
-                return new AddEventCommand(arguments);
-            case "delete":
-                return new DeleteCommand(arguments);
-            case "find":
-                return new FindCommand(arguments);
-            default:
-                throw new BorkException("Unknown bork.command.");
+        case "reset":
+            return new ResetCommand();
+        case "bye":
+            return new ExitCommand();
+        case "list":
+            return new ListCommand();
+        case "mark":
+            return new MarkCommand(arguments);
+        case "unmark":
+            return new UnmarkCommand(arguments);
+        case "todo":
+            return new AddToDoCommand(arguments);
+        case "deadline":
+            return new AddDeadlineCommand(arguments);
+        case "event":
+            return new AddEventCommand(arguments);
+        case "delete":
+            return new DeleteCommand(arguments);
+        case "find":
+            return new FindCommand(arguments);
+        default:
+            throw new BorkException("Unknown command.");
         }
     }
 }

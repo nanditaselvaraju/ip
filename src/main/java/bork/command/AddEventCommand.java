@@ -1,16 +1,20 @@
 package bork.command;
 
-import bork.task.Task;
-import bork.task.TaskList;
-import bork.task.Event;
-import bork.ui.UserInterface;
-import bork.storage.Storage;
-import bork.exception.BorkException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import bork.exception.BorkException;
+import bork.storage.Storage;
+import bork.task.Event;
+import bork.task.Task;
+import bork.task.TaskList;
+import bork.ui.UserInterface;
+
+/**
+ * Represents a command to add an even task.
+ * Parses the user input to extract the description, start time, and end time.
+ */
 public class AddEventCommand extends Command {
     private String description;
     private LocalDateTime start;
@@ -25,7 +29,8 @@ public class AddEventCommand extends Command {
      */
     public AddEventCommand(String arguments) throws BorkException {
         if (arguments.isEmpty() || !arguments.contains("/from") || !arguments.contains("/to")) {
-            throw new BorkException("Invalid format! Use: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+            throw new BorkException(
+                    "Invalid format! Use: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
         }
         String[] parts = arguments.split(" /from ", 2);
         this.description = parts[0];
@@ -55,4 +60,3 @@ public class AddEventCommand extends Command {
         storage.save(tasks);
     }
 }
-
