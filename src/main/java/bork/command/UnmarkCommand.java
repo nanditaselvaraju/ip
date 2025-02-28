@@ -20,6 +20,9 @@ public class UnmarkCommand extends Command {
      * @throws BorkException If the argument is not a valid integer.
      */
     public UnmarkCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
+        assert !arguments.isEmpty() : "Arguments should not be empty";
+
         try {
             this.taskIndex = Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
@@ -39,11 +42,19 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UserInterface should not be null";
+        assert storage != null : "Storage should not be null";
+
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BorkException("Invalid task number.");
         }
         Task task = tasks.get(taskIndex);
+        assert task != null : "Retrieved task should not be null";
+
         task.markAsNotDone();
+        assert !task.isDone() : "Task should be marked as not done";
+
         storage.save(tasks);
         return ui.showUnmarkedTask(task);
     }

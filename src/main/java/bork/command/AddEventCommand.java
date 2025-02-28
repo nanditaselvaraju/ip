@@ -28,19 +28,27 @@ public class AddEventCommand extends Command {
      * @throws BorkException If the arguments are missing or the date format is incorrect.
      */
     public AddEventCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
+
         if (arguments.isEmpty() || !arguments.contains("/from") || !arguments.contains("/to")) {
             throw new BorkException(
                     "Invalid format! Use: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
         }
         String[] parts = arguments.split(" /from ", 2);
+        assert parts.length == 2 : "Arguments should be split into description and time part";
+
         this.description = parts[0];
         String[] timeParts = parts[1].split(" /to ", 2);
+        assert timeParts.length == 2 : "Time part should be split into start and end time";
+
         try {
             this.start = LocalDateTime.parse(timeParts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
             this.end = LocalDateTime.parse(timeParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
         } catch (DateTimeParseException e) {
             throw new BorkException("Invalid date format! Use: yyyy-MM-dd HHmm");
         }
+        assert this.start != null : "Start time should not be null";
+        assert this.end != null : "End time should not be null";
     }
 
     /**
@@ -55,6 +63,10 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "User interface should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task task = new Event(description, start, end);
         tasks.add(task);
         storage.save(tasks);
