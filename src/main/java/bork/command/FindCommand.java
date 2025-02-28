@@ -27,6 +27,7 @@ public class FindCommand extends Command {
             throw new BorkException("Please specify a keyword to search for.");
         }
         this.keyword = arguments.trim().toLowerCase();
+        assert !this.keyword.isEmpty() : "Keyword should not be empty after trimming.";
     }
 
     /**
@@ -40,6 +41,9 @@ public class FindCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UserInterface should not be null";
+
         List<Task> matchingTasks = tasks.getAllTasks().stream()
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword))
                 .collect(Collectors.toList());

@@ -20,11 +20,14 @@ public class MarkCommand extends Command {
      * @throws BorkException If the argument is not a valid integer.
      */
     public MarkCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
+
         try {
             this.taskIndex = Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
             throw new BorkException("Invalid task number.");
         }
+        assert taskIndex >= -1 : "Task index should not be negative";
     }
 
     /**
@@ -39,6 +42,11 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UserInterface should not be null";
+        assert storage != null : "Storage should not be null";
+        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index out of bounds";
+
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BorkException("Invalid task number.");
         }

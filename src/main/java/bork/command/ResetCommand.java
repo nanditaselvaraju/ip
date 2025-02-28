@@ -23,6 +23,10 @@ public class ResetCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UserInterface should not be null";
+        assert storage != null : "Storage should not be null";
+
         tasks.reset();
         storage.save(tasks);
         return ui.showResetMessage();

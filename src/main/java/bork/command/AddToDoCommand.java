@@ -22,6 +22,8 @@ public class AddToDoCommand extends Command {
      * @throws BorkException If the description is empty.
      */
     public AddToDoCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
+
         if (arguments.isEmpty()) {
             throw new BorkException("Description of a todo cannot be empty.");
         }
@@ -40,6 +42,10 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "User interface should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task task = new ToDo(description);
         tasks.add(task);
         storage.save(tasks);
