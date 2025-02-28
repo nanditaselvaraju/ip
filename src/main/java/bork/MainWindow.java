@@ -38,11 +38,16 @@ public class MainWindow extends AnchorPane {
     }
 
     /**
-     * Injects the Bork instance.
+     * Injects the Bork instance and displays the welcome message.
      */
     @FXML
     public void setBork(Bork b) {
         bork = b;
+        String welcomeMessage = bork.getUi().showWelcome();
+
+        dialogContainer.getChildren().add(
+                DialogBox.getBorkDialog(welcomeMessage, borkImage)
+        );
     }
 
     /**
@@ -52,11 +57,19 @@ public class MainWindow extends AnchorPane {
     @FXML
     private void handleUserInput() {
         String input = userInput.getText();
+        System.out.println("User input: " + input);
+
         String response = bork.getResponse(input);
+        System.out.println("Bork response: " + response);
+
         dialogContainer.getChildren().addAll(
                 DialogBox.getUserDialog(input, userImage),
                 DialogBox.getBorkDialog(response, borkImage)
         );
         userInput.clear();
+
+        if (input.trim().equalsIgnoreCase("bye")) {
+            System.exit(0);
+        }
     }
 }

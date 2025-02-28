@@ -21,17 +21,20 @@ public class UserInterface {
 
     /**
      * Displays the welcome message when the application starts.
+     *
+     * @return The welcome message.
      */
-    public void showWelcome() {
-        System.out.println("Hello! I'm Bork");
-        System.out.println("What can I do for you?");
+    public String showWelcome() {
+        return "Hello! I'm Bork\nWhat can I do for you?";
     }
 
     /**
      * Displays a message when the task list is reset.
+     *
+     * @return The reset message.
      */
-    public void showResetMessage() {
-        System.out.println("Task list has been reset. Starting fresh!");
+    public String showResetMessage() {
+        return "Task list has been reset. Starting fresh!";
     }
 
     /**
@@ -47,16 +50,19 @@ public class UserInterface {
      * Displays an error message.
      *
      * @param message THe error message to be displayed.
+     * @return THe error message.
      */
-    public void showError(String message) {
-        System.out.println("Error: " + message);
+    public String showError(String message) {
+        return "Error: " + message;
     }
 
     /**
      * Displays an error message if there is an issue loading tasks from storage.
+     *
+     * @return The loading error message.
      */
-    public void showLoadingError() {
-        System.out.println("Error loading tasks. Starting with an empty task list.");
+    public String showLoadingError() {
+        return "Error loading tasks. Starting with an empty task list.";
     }
 
     /**
@@ -64,11 +70,14 @@ public class UserInterface {
      *
      * @param task The task that was added.
      * @param taskCount The total number of tasks after adding the new task.
+     * @return The task added message.
      */
-    public void showTaskAdded(Task task, int taskCount) {
-        System.out.println("Got it. I've added this bork.task:");
-        System.out.println(" " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showTaskAdded(Task task, int taskCount) {
+        return "Got it. I've added this task:\n "
+                + task
+                + "\nNow you have "
+                + taskCount
+                + " tasks in the list.";
     }
 
     /**
@@ -76,63 +85,70 @@ public class UserInterface {
      *
      * @param task The task that was removed.
      * @param taskCount The total number of tasks remaining after removing the task.
+     * @return The task removed message.
      */
-    public void showTaskRemoved(Task task, int taskCount) {
-        System.out.println("Noted. I've removed this bork.task:");
-        System.out.println(" " + task);
-        System.out.println("Now you have " + taskCount + " tasks in the list.");
+    public String showTaskRemoved(Task task, int taskCount) {
+        return "Noted. I've removed this task:\n "
+                + task
+                + "\nNow you have "
+                + taskCount
+                + " tasks in the list.";
     }
 
     /**
      * Displays the list of tasks.
      *
      * @param tasks The list of tasks to be displayed.
+     * @return The task list message.
      */
-    public void showTaskList(TaskList tasks) {
+    public String showTaskList(TaskList tasks) {
         if (tasks.isEmpty()) {
-            System.out.println("No tasks added yet.");
-            return;
+            return "No tasks added yet.";
         }
-        System.out.println("Here are the tasks in your list:");
+        StringBuilder sb = new StringBuilder("Here are the tasks in your list:\n");
         for (int i = 0; i < tasks.size(); i++) {
-            System.out.println((i + 1) + ". " + tasks.get(i));
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
         }
+        return sb.toString();
     }
 
     /**
      * Displays a message confirmed that a task has been marked as done.
      *
-     * @param task THe task that has been marked as done.
+     * @param task The task that has been marked as done.
+     * @return TThe task marked as done message.
      */
-    public void showMarkedTask(Task task) {
-        System.out.println("Nice! I've marked this bork.task as done:");
-        System.out.println(" " + task);
+    public String showMarkedTask(Task task) {
+        return "Nice! I've marked this task as done:\n " + task;
     }
 
     /**
      * Displays a message confirming that a task has been marked as not done.
      *
      * @param task The task that has been marked as not done.
+     * @return The task marked as not done message.
      */
-    public void showUnmarkedTask(Task task) {
-        System.out.println("OK, I've marked this bork.task as not done yet:");
-        System.out.println(" " + task);
+    public String showUnmarkedTask(Task task) {
+        return "OK, I've marked this task as not done yet:\n " + task;
     }
 
     /**
      * Displays the goodbye message when the application is exiting.
+     *
+     * @return The goodbye message.
      */
-    public void showGoodbye() {
-        System.out.println("Bye. Hope to see you again soon!");
+    public String showGoodbye() {
+        return "Bye. Hope to see you again soon!";
     }
 
     /**
      * Displays a message to the standard output.
      *
      * @param message The message to be displayed.
+     * @return The message.
      */
-    public void showMessage(String message) {
-        System.out.println(message);
+    public String showMessage(String message) {
+        return message;
     }
 
     /**
@@ -141,15 +157,16 @@ public class UserInterface {
      * Otherwise the tasks are displayed with their corresponding index.
      *
      * @param tasks The list of matching tasks to be displayed.
+     * @return The matching tasks message.
      */
-    public void showMatchingTasks(List<Task> tasks) {
+    public String showMatchingTasks(List<Task> tasks) {
         if (tasks.isEmpty()) {
             showMessage("No matching tasks found.");
-        } else {
-            showMessage("Here are the matching tasks in your list:");
-            for (int i = 0; i < tasks.size(); i++) {
-                showMessage((i + 1) + ". " + tasks.get(i));
-            }
         }
+        StringBuilder sb = new StringBuilder("Here are the matching tasks in your list:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
     }
 }

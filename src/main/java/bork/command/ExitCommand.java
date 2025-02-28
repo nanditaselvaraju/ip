@@ -13,13 +13,14 @@ public class ExitCommand extends Command {
     /**
      * Executes the exit command by displaying a goodbye message.
      *
-     * @param tasks The list of tasks to operate on.
-     * @param ui The user interface to display messages.
+     * @param tasks   The list of tasks to operate on.
+     * @param ui      The user interface to display messages.
      * @param storage The storage system to save or load tasks.
+     * @return A goodbye message
      */
     @Override
-    public void execute(TaskList tasks, UserInterface ui, Storage storage) {
-        ui.showGoodbye();
+    public String execute(TaskList tasks, UserInterface ui, Storage storage) {
+        return ui.showGoodbye();
     }
 
     /**

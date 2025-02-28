@@ -31,18 +31,19 @@ public class DeleteCommand extends Command {
      * Executes the command by deleting the specified task from the task list.
      * The removed task is displayed to the user and the updated task list is saved.
      *
-     * @param tasks The list of tasks to operate on.
-     * @param ui The user interface to display messages.
+     * @param tasks   The list of tasks to operate on.
+     * @param ui      The user interface to display messages.
      * @param storage The storage system to save or load tasks.
+     * @return A message showing that the task has been removed.
      * @throws BorkException If the task index is out of bounds.
      */
     @Override
-    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+    public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BorkException("Invalid task number.");
         }
         Task removedTask = tasks.remove(taskIndex);
-        ui.showTaskRemoved(removedTask, tasks.size());
         storage.save(tasks);
+        return ui.showTaskRemoved(removedTask, tasks.size());
     }
 }

@@ -32,16 +32,17 @@ public class AddToDoCommand extends Command {
      * Executes the command by adding a {@link ToDo} task to the task list.
      * The new task is then displayed to the user and saved to storage.
      *
-     * @param tasks The list of tasks to operate on.
-     * @param ui The user interface to display messages.
+     * @param tasks   The list of tasks to operate on.
+     * @param ui      The user interface to display messages.
      * @param storage The storage system to save or load tasks.
+     * @return A String acknowledging the Task added.
      * @throws BorkException If an error occurs while saving the task.
      */
     @Override
-    public void execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+    public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
         Task task = new ToDo(description);
         tasks.add(task);
-        ui.showTaskAdded(task, tasks.size());
         storage.save(tasks);
+        return ui.showTaskAdded(task, tasks.size());
     }
 }

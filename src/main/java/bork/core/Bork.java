@@ -56,11 +56,23 @@ public class Bork {
         }
     }
 
-    /**
-     * Generates a response for the user's chat message.
-     */
     public String getResponse(String input) {
-        return "Bork heard: " + input;
+        try {
+            Command c = Parser.parse(input);
+            String response = c.execute(tasks, ui, storage);
+            return response;
+        } catch (BorkException e) {
+            return e.getMessage();
+        }
+    }
+
+    /**
+     * Getter method.
+     *
+     * @return the UI.
+     */
+    public UserInterface getUi() {
+        return this.ui;
     }
 
     /**

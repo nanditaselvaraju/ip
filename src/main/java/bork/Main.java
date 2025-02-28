@@ -13,7 +13,6 @@ import javafx.stage.Stage;
  * A GUI for Bork using FXML.
  */
 public class Main extends Application {
-
     private Bork bork = new Bork("data/bork.txt");
 
     @Override

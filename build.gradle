@@ -53,6 +53,7 @@ application {
 shadowJar {
     archiveBaseName = "duke"
     archiveClassifier = null
+    archiveFileName = 'bork.jar'
 }
 
 run{

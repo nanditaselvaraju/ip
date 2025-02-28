@@ -33,16 +33,17 @@ public class FindCommand extends Command {
      * Executes the command by filtering tasks that contain the keyword.
      * Displays the matching tasks to the user.
      *
-     * @param tasks The list of tasks to search through.
-     * @param ui The user interface to display messages.
+     * @param tasks   The list of tasks to search through.
+     * @param ui      The user interface to display messages.
      * @param storage The storage system (not used in this command).
+     * @return A String showing whether there are matching tasks, and what they are.
      */
     @Override
-    public void execute(TaskList tasks, UserInterface ui, Storage storage) {
+    public String execute(TaskList tasks, UserInterface ui, Storage storage) {
         List<Task> matchingTasks = tasks.getAllTasks().stream()
                 .filter(task -> task.getDescription().toLowerCase().contains(keyword))
                 .collect(Collectors.toList());
 
-        ui.showMatchingTasks(matchingTasks);
+        return ui.showMatchingTasks(matchingTasks);
     }
 }
