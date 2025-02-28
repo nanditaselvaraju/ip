@@ -92,6 +92,15 @@ public class TaskList implements Iterable<Task> {
     }
 
     /**
+     * Checks if the task index is valid.
+     * @param index The task index
+     * @return {@code true} if the index is a valid integer, otherwise {@code false}.
+     */
+    public boolean isValidIndex(int index) {
+        return index >= 0 && index < size();
+    }
+
+    /**
      * Returns the list of all tasks in the TaskList.
      *
      * @return A list of tasks.

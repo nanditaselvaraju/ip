@@ -11,7 +11,7 @@ import bork.ui.UserInterface;
  * Updates the task status, notifies the user, and saves the change.
  */
 public class UnmarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs an {@code UnmarkCommand} by parsing the provided arguments.
@@ -20,10 +20,21 @@ public class UnmarkCommand extends Command {
      * @throws BorkException If the argument is not a valid integer.
      */
     public UnmarkCommand(String arguments) throws BorkException {
+        this.taskIndex = parseTaskIndex(arguments);
+    }
+
+    /**
+     * Parses the task index from the command arguments.
+     *
+     * @param arguments The raw user input.
+     * @return The zero-based index of the task.
+     * @throws BorkException If the input is not a valid integer.
+     */
+    private int parseTaskIndex(String arguments) throws BorkException {
         try {
-            this.taskIndex = Integer.parseInt(arguments) - 1;
+            return Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
-            throw new BorkException("Invalid bork.task number.");
+            throw new BorkException("Invalid task number.");
         }
     }
 
@@ -39,12 +50,39 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        Task task = getValidTask(tasks);
+        task.markAsNotDone();
+        persistChanges(tasks, storage);
+        return ui.showUnmarkedTask(task);
+    }
+
+    /**
+     * Retrieves a task from the list, ensuring the index is valid.
+     *
+     * @param tasks The task list.
+     * @return The corresponding task.
+     * @throws BorkException If the task index is out of bounds.
+     */
+    private Task getValidTask(TaskList tasks) throws BorkException {
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BorkException("Invalid task number.");
         }
-        Task task = tasks.get(taskIndex);
-        task.markAsNotDone();
-        storage.save(tasks);
-        return ui.showUnmarkedTask(task);
+        return tasks.get(taskIndex);
+    }
+
+    /**
+     * Saves the updated task list to storage.
+     *
+     * @param tasks   The task list.
+     * @param storage The storage system handling persistence.
+     * @throws BorkException If saving fails.
+     */
+    private void persistChanges(TaskList tasks, Storage storage) throws BorkException {
+        try {
+            storage.save(tasks);
+        } catch (BorkException e) {
+            System.err.println("Warning: Failed to save task list after unmarking - " + e.getMessage());
+            throw e;
+        }
     }
 }

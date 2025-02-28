@@ -24,8 +24,26 @@ public class ResetCommand extends Command {
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
         tasks.reset();
-        storage.save(tasks);
+        persistChanges(tasks, storage);
         return ui.showResetMessage();
+    }
+
+    /**
+     * Saves the updated task list to storage.
+     * If saving fails, logs the error but does not prevent execution.
+     *
+     * @param tasks   The task list to be saved.
+     * @param storage The storage system handling persistence.
+     * @throws BorkException If saving fails.
+     */
+    private void persistChanges(TaskList tasks, Storage storage) throws BorkException {
+        try {
+            storage.save(tasks);
+        } catch (BorkException e) {
+            // Optionally, log the error for debugging
+            System.err.println("Warning: Failed to save task list after reset - " + e.getMessage());
+            throw e; // Rethrow to ensure higher-level handlers are aware
+        }
     }
 
     /**

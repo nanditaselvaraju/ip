@@ -11,7 +11,7 @@ import bork.ui.UserInterface;
  * Updates the task status, notifies the user, and saves the change.
  */
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a {@code MarkCommand} by parsing the provided argument as a task index.
@@ -20,10 +20,21 @@ public class MarkCommand extends Command {
      * @throws BorkException If the argument is not a valid integer.
      */
     public MarkCommand(String arguments) throws BorkException {
+        this.taskIndex = parseTaskIndex(arguments);
+    }
+
+    /**
+     * Parses and validates the task index from the user input.
+     *
+     * @param arguments The input containing the task number.
+     * @return The zero-based task index.
+     * @throws BorkException If the input is not a valid integer.
+     */
+    private int parseTaskIndex(String arguments) throws BorkException {
         try {
-            this.taskIndex = Integer.parseInt(arguments) - 1;
+            return Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
-            throw new BorkException("Invalid task number.");
+            throw new BorkException("Task number must be a valid integer.");
         }
     }
 
@@ -39,7 +50,7 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
-        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+        if (!tasks.isValidIndex(taskIndex)) {
             throw new BorkException("Invalid task number.");
         }
         Task task = tasks.get(taskIndex);

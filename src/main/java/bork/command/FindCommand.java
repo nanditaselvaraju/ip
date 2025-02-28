@@ -14,7 +14,7 @@ import bork.ui.UserInterface;
  * Searches through the task list and displays matching tasks to the user.
  */
 public class FindCommand extends Command {
-    private String keyword;
+    private final String keyword;
 
     /**
      * Constructs a {@code FindCommand} by parsing the provided search keyword.
@@ -23,10 +23,10 @@ public class FindCommand extends Command {
      * @throws BorkException If the keyword is empty.
      */
     public FindCommand(String arguments) throws BorkException {
-        if (arguments.isEmpty()) {
+        if (arguments == null || arguments.trim().isEmpty()) {
             throw new BorkException("Please specify a keyword to search for.");
         }
-        this.keyword = arguments.trim().toLowerCase();
+        this.keyword = arguments.trim();
     }
 
     /**

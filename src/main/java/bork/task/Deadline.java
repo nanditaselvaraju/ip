@@ -2,16 +2,16 @@ package bork.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a task with a specific deadline.
  * Includes a description and a due date/time.
  */
 public class Deadline extends Task {
-    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
 
-    protected LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs a Deadline task with the given description and deadline.
@@ -21,7 +21,7 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
-        this.deadline = deadline;
+        this.deadline = Objects.requireNonNull(deadline, "Deadline cannot be null");
     }
 
     /**
@@ -31,7 +31,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(INPUT_FORMAT);
+        DateTimeFormatter storageFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(storageFormat);
     }
 
     /**
@@ -43,5 +44,14 @@ public class Deadline extends Task {
     @Override
     public String toString() {
         return "[D]" + super.toString() + " (by: " + deadline.format(OUTPUT_FORMAT) + ")";
+    }
+
+    /**
+     * Retrieves the deadline of the task.
+     *
+     * @return The deadline as a LocalDateTime object.
+     */
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 }

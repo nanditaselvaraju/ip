@@ -16,9 +16,13 @@ import bork.ui.UserInterface;
  * Parses the user input to extract the description, start time, and end time.
  */
 public class AddEventCommand extends Command {
-    private String description;
-    private LocalDateTime start;
-    private LocalDateTime end;
+    private static final String DATE_FORMAT = "yyyy-MM-dd HHmm";
+    private static final String EVENT_FORMAT_MESSAGE =
+            "Invalid format! Use: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>";
+
+    private final String description;
+    private final LocalDateTime start;
+    private final LocalDateTime end;
 
     /**
      * Constructs an {@code AddEventCommand} by parsing the provided arguments.
@@ -28,18 +32,53 @@ public class AddEventCommand extends Command {
      * @throws BorkException If the arguments are missing or the date format is incorrect.
      */
     public AddEventCommand(String arguments) throws BorkException {
-        if (arguments.isEmpty() || !arguments.contains("/from") || !arguments.contains("/to")) {
-            throw new BorkException(
-                    "Invalid format! Use: event <description> /from <yyyy-MM-dd HHmm> /to <yyyy-MM-dd HHmm>");
+        String[] parsedArgs = parseArguments(arguments);
+        this.description = parsedArgs[0];
+        this.start = parseDateTime(parsedArgs[1]);
+        this.end = parseDateTime(parsedArgs[2]);
+
+        if (end.isBefore(start)) {
+            throw new BorkException("End time cannot be before the start time.");
         }
+    }
+
+    /**
+     * Parses the user arguments into description, start time, and end time parts.
+     *
+     * @param arguments The command input string.
+     * @return A string array containing the description, start time, and end time.
+     * @throws BorkException If the format is invalid.
+     */
+    private String[] parseArguments(String arguments) throws BorkException {
+        if (arguments == null || arguments.isBlank() || !arguments.contains("/from") || !arguments.contains("/to")) {
+            throw new BorkException(EVENT_FORMAT_MESSAGE);
+        }
+
         String[] parts = arguments.split(" /from ", 2);
-        this.description = parts[0];
+        if (parts.length < 2 || parts[0].isBlank()) {
+            throw new BorkException(EVENT_FORMAT_MESSAGE);
+        }
+
         String[] timeParts = parts[1].split(" /to ", 2);
+        if (timeParts.length < 2 || timeParts[0].isBlank() || timeParts[1].isBlank()) {
+            throw new BorkException(EVENT_FORMAT_MESSAGE);
+        }
+
+        return new String[]{parts[0].trim(), timeParts[0].trim(), timeParts[1].trim()};
+    }
+
+    /**
+     * Parses a date-time string into a {@code LocalDateTime}.
+     *
+     * @param dateTimeStr The date-time string to parse.
+     * @return The parsed {@code LocalDateTime}.
+     * @throws BorkException If the date format is incorrect.
+     */
+    private LocalDateTime parseDateTime(String dateTimeStr) throws BorkException {
         try {
-            this.start = LocalDateTime.parse(timeParts[0], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-            this.end = LocalDateTime.parse(timeParts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
+            return LocalDateTime.parse(dateTimeStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
         } catch (DateTimeParseException e) {
-            throw new BorkException("Invalid date format! Use: yyyy-MM-dd HHmm");
+            throw new BorkException("Invalid date format! Use: " + DATE_FORMAT);
         }
     }
 
