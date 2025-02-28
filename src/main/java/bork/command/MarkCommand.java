@@ -20,6 +20,7 @@ public class MarkCommand extends Command {
      * @throws BorkException If the argument is not a valid integer.
      */
     public MarkCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
         this.taskIndex = parseTaskIndex(arguments);
     }
 
@@ -32,7 +33,11 @@ public class MarkCommand extends Command {
      */
     private int parseTaskIndex(String arguments) throws BorkException {
         try {
-            return Integer.parseInt(arguments) - 1;
+            int index = Integer.parseInt(arguments) - 1;
+            if (index < 0) {
+                throw new BorkException("Task number must be a positive integer.");
+            }
+            return index;
         } catch (NumberFormatException e) {
             throw new BorkException("Task number must be a valid integer.");
         }
@@ -50,9 +55,14 @@ public class MarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
-        if (!tasks.isValidIndex(taskIndex)) {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UserInterface should not be null";
+        assert storage != null : "Storage should not be null";
+
+        if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BorkException("Invalid task number.");
         }
+      
         Task task = tasks.get(taskIndex);
         task.markAsDone();
         storage.save(tasks);

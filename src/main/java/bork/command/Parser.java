@@ -16,6 +16,7 @@ public class Parser {
      * @throws BorkException If the input command is not recognised.
      */
     public static Command parse(String input) throws BorkException {
+        assert input != null && !input.isEmpty() : "Input cannot be null or empty";
         String[] parts = input.split(" ", 2);
         String command = parts[0].toLowerCase();
         String arguments = parts.length > 1 ? parts[1] : "";

@@ -40,6 +40,10 @@ public class AddToDoCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "User interface should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task task = new ToDo(description);
         tasks.add(task);
         storage.save(tasks);

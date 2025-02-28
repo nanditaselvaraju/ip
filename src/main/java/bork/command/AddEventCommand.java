@@ -32,6 +32,7 @@ public class AddEventCommand extends Command {
      * @throws BorkException If the arguments are missing or the date format is incorrect.
      */
     public AddEventCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
         String[] parsedArgs = parseArguments(arguments);
         this.description = parsedArgs[0];
         this.start = parseDateTime(parsedArgs[1]);
@@ -94,6 +95,10 @@ public class AddEventCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "User interface should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task task = new Event(description, start, end);
         tasks.add(task);
         storage.save(tasks);

@@ -21,14 +21,18 @@ public class DeleteCommand extends Command {
      * @throws BorkException If the argument is not a valid integer.
      */
     public DeleteCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
+      
         if (arguments.trim().isEmpty()) {
             throw new BorkException("Task number cannot be empty.");
         }
+      
         try {
             this.taskIndex = Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {
             throw new BorkException("Invalid task number. Please enter a valid integer.");
         }
+        assert taskIndex >= -1 : "Task index should be at least -1";
     }
 
     /**
@@ -43,6 +47,10 @@ public class DeleteCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UserInterface should not be null";
+        assert storage != null : "Storage should not be null";
+
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BorkException("Invalid task number.");
         }

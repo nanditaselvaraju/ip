@@ -29,6 +29,8 @@ public class AddDeadlineCommand extends Command {
      * @throws BorkException If the arguments are missing or the date format is incorrect.
      */
     public AddDeadlineCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
+
         String[] parsedArgs = parseArguments(arguments);
         this.description = parsedArgs[0];
         this.deadline = parseDeadline(parsedArgs[1]);
@@ -60,10 +62,10 @@ public class AddDeadlineCommand extends Command {
      * @throws BorkException If the date format is incorrect.
      */
     private LocalDateTime parseDeadline(String deadlineStr) throws BorkException {
-        try {
-            return LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
-        } catch (DateTimeParseException e) {
-            throw new BorkException("Invalid date format! Use: " + DATE_FORMAT);
+        assert arguments != null : "Arguments should not be null";
+
+        if (arguments.isEmpty() || !arguments.contains("/by")) {
+            throw new BorkException("Invalid format! Use: deadline <description> /by <yyyy-MM-dd HHmm>");
         }
     }
 
@@ -79,6 +81,10 @@ public class AddDeadlineCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "Task list should not be null";
+        assert ui != null : "User interface should not be null";
+        assert storage != null : "Storage should not be null";
+
         Task task = new Deadline(description, deadline);
         tasks.add(task);
         storage.save(tasks);

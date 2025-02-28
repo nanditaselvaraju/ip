@@ -50,6 +50,7 @@ public class TaskList implements Iterable<Task> {
      * @param task The task to be added.
      */
     public void add(Task task) {
+        assert task != null : "Task cannot be null";
         tasks.add(task);
     }
 

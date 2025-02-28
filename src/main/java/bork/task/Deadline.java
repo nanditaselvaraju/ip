@@ -10,6 +10,7 @@ import java.util.Objects;
  */
 public class Deadline extends Task {
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
     private final LocalDateTime deadline;
 
@@ -21,6 +22,8 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
+        assert description != null && !description.trim().isEmpty() : "Description should not be
+          
         this.deadline = Objects.requireNonNull(deadline, "Deadline cannot be null");
     }
 
@@ -31,8 +34,8 @@ public class Deadline extends Task {
      */
     @Override
     public String toFileString() {
-        DateTimeFormatter storageFormat = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(storageFormat);
+        assert deadline != null : "Deadline should not be null when saving to file";
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(STORAGE_FORMAT);
     }
 
     /**
@@ -43,6 +46,7 @@ public class Deadline extends Task {
      */
     @Override
     public String toString() {
+        assert deadline != null : "Deadline should not be null when generating string representation";
         return "[D]" + super.toString() + " (by: " + deadline.format(OUTPUT_FORMAT) + ")";
     }
 

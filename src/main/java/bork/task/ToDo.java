@@ -12,6 +12,7 @@ public class ToDo extends Task {
      */
     public ToDo(String description) {
         super(description);
+        assert description != null && !description.trim().isEmpty() : "Description should not be null or empty";
     }
 
     /**
@@ -21,6 +22,7 @@ public class ToDo extends Task {
      */
     @Override
     public String toFileString() {
+        assert description != null : "Description should not be null";
         return "T | " + (isDone ? "1" : "0") + " | " + description;
     }
 

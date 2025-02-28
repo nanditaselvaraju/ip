@@ -20,6 +20,8 @@ public class UnmarkCommand extends Command {
      * @throws BorkException If the argument is not a valid integer.
      */
     public UnmarkCommand(String arguments) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
+        assert !arguments.isEmpty() : "Arguments should not be empty";
         this.taskIndex = parseTaskIndex(arguments);
     }
 
@@ -32,7 +34,11 @@ public class UnmarkCommand extends Command {
      */
     private int parseTaskIndex(String arguments) throws BorkException {
         try {
-            return Integer.parseInt(arguments) - 1;
+            int index = Integer.parseInt(arguments) - 1;
+            if (index < 0) {
+                throw new BorkException("Task number must be a positive integer.");
+            }
+            return index;
         } catch (NumberFormatException e) {
             throw new BorkException("Invalid task number.");
         }
@@ -50,8 +56,14 @@ public class UnmarkCommand extends Command {
      */
     @Override
     public String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException {
+        assert tasks != null : "TaskList should not be null";
+        assert ui != null : "UserInterface should not be null";
+        assert storage != null : "Storage should not be null";
+      
         Task task = getValidTask(tasks);
         task.markAsNotDone();
+        assert !task.isDone() : "Task should be marked as not done";
+      
         persistChanges(tasks, storage);
         return ui.showUnmarkedTask(task);
     }
@@ -64,7 +76,7 @@ public class UnmarkCommand extends Command {
      * @throws BorkException If the task index is out of bounds.
      */
     private Task getValidTask(TaskList tasks) throws BorkException {
-        if (taskIndex < 0 || taskIndex >= tasks.size()) {
+        if (!tasks.isValidIndex(taskIndex)) {
             throw new BorkException("Invalid task number.");
         }
         return tasks.get(taskIndex);
