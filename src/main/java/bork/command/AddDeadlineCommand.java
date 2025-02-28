@@ -16,12 +16,14 @@ import bork.ui.UserInterface;
  * Parses the user input to extract the description and deadline.
  */
 public class AddDeadlineCommand extends Command {
-    private String description;
-    private LocalDateTime deadline;
+    private static final String DATE_FORMAT = "yyyy-MM-dd HHmm";
+    private static final String DEADLINE_FORMAT_MESSAGE =
+            "Invalid format! Use: deadline <description> /by <yyyy-MM-dd HHmm>";
+    private final String description;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs an {@code AddDeadlineCommand} by parsing the provided arguments.
-     * The arguments must contain a description and a deadline in the format {@code yyyy-MM-dd HHmm}.
      *
      * @param arguments The command arguments containing the task description and deadline.
      * @throws BorkException If the arguments are missing or the date format is incorrect.
@@ -29,17 +31,41 @@ public class AddDeadlineCommand extends Command {
     public AddDeadlineCommand(String arguments) throws BorkException {
         assert arguments != null : "Arguments should not be null";
 
-        if (arguments.isEmpty() || !arguments.contains("/by")) {
-            throw new BorkException("Invalid format! Use: deadline <description> /by <yyyy-MM-dd HHmm>");
+        String[] parsedArgs = parseArguments(arguments);
+        this.description = parsedArgs[0];
+        this.deadline = parseDeadline(parsedArgs[1]);
+    }
+
+    /**
+     * Parses the user arguments into description and deadline parts.
+     *
+     * @param arguments The command input string.
+     * @return A string array containing the description and deadline.
+     * @throws BorkException If the format is invalid.
+     */
+    private String[] parseArguments(String arguments) throws BorkException {
+        if (arguments == null || arguments.isBlank() || !arguments.contains("/by")) {
+            throw new BorkException(DEADLINE_FORMAT_MESSAGE);
         }
         String[] parts = arguments.split(" /by ", 2);
-        assert parts.length == 2 : "Arguments should be split into exactly two parts";
+        if (parts.length < 2 || parts[0].isBlank() || parts[1].isBlank()) {
+            throw new BorkException(DEADLINE_FORMAT_MESSAGE);
+        }
+        return new String[]{parts[0].trim(), parts[1].trim()};
+    }
 
-        this.description = parts[0];
-        try {
-            this.deadline = LocalDateTime.parse(parts[1], DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm"));
-        } catch (DateTimeParseException e) {
-            throw new BorkException("Invalid date format! Use: yyyy-MM-dd HHmm");
+    /**
+     * Parses the deadline string into a {@code LocalDateTime}.
+     *
+     * @param deadlineStr The deadline string to parse.
+     * @return The parsed {@code LocalDateTime}.
+     * @throws BorkException If the date format is incorrect.
+     */
+    private LocalDateTime parseDeadline(String deadlineStr) throws BorkException {
+        assert arguments != null : "Arguments should not be null";
+
+        if (arguments.isEmpty() || !arguments.contains("/by")) {
+            throw new BorkException("Invalid format! Use: deadline <description> /by <yyyy-MM-dd HHmm>");
         }
     }
 

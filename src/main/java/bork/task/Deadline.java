@@ -2,16 +2,17 @@ package bork.task;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 /**
  * Represents a task with a specific deadline.
  * Includes a description and a due date/time.
  */
 public class Deadline extends Task {
-    private static final DateTimeFormatter INPUT_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
     private static final DateTimeFormatter OUTPUT_FORMAT = DateTimeFormatter.ofPattern("MMM d yyyy, h:mm a");
+    private static final DateTimeFormatter STORAGE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HHmm");
 
-    protected LocalDateTime deadline;
+    private final LocalDateTime deadline;
 
     /**
      * Constructs a Deadline task with the given description and deadline.
@@ -21,11 +22,9 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
-
-        assert description != null && !description.trim().isEmpty() : "Description should not be null or empty";
-        assert deadline != null : "Deadline should not be null";
-
-        this.deadline = deadline;
+        assert description != null && !description.trim().isEmpty() : "Description should not be
+          
+        this.deadline = Objects.requireNonNull(deadline, "Deadline cannot be null");
     }
 
     /**
@@ -36,7 +35,7 @@ public class Deadline extends Task {
     @Override
     public String toFileString() {
         assert deadline != null : "Deadline should not be null when saving to file";
-        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(INPUT_FORMAT);
+        return "D | " + (isDone ? "1" : "0") + " | " + description + " | " + deadline.format(STORAGE_FORMAT);
     }
 
     /**
@@ -49,5 +48,14 @@ public class Deadline extends Task {
     public String toString() {
         assert deadline != null : "Deadline should not be null when generating string representation";
         return "[D]" + super.toString() + " (by: " + deadline.format(OUTPUT_FORMAT) + ")";
+    }
+
+    /**
+     * Retrieves the deadline of the task.
+     *
+     * @return The deadline as a LocalDateTime object.
+     */
+    public LocalDateTime getDeadline() {
+        return deadline;
     }
 }

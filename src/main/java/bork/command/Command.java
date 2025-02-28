@@ -18,7 +18,7 @@ public abstract class Command {
      * @param tasks   The list of tasks to operate on.
      * @param ui      The user interface to display messages.
      * @param storage The storage system to save or load tasks.
-     * @return null
+     * @return A message indicating the result of the execution.
      * @throws BorkException If an error occurs during execution.
      */
     public abstract String execute(TaskList tasks, UserInterface ui, Storage storage) throws BorkException;

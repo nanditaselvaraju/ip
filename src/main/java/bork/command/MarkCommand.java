@@ -11,7 +11,7 @@ import bork.ui.UserInterface;
  * Updates the task status, notifies the user, and saves the change.
  */
 public class MarkCommand extends Command {
-    private int taskIndex;
+    private final int taskIndex;
 
     /**
      * Constructs a {@code MarkCommand} by parsing the provided argument as a task index.
@@ -21,13 +21,26 @@ public class MarkCommand extends Command {
      */
     public MarkCommand(String arguments) throws BorkException {
         assert arguments != null : "Arguments should not be null";
+        this.taskIndex = parseTaskIndex(arguments);
+    }
 
+    /**
+     * Parses and validates the task index from the user input.
+     *
+     * @param arguments The input containing the task number.
+     * @return The zero-based task index.
+     * @throws BorkException If the input is not a valid integer.
+     */
+    private int parseTaskIndex(String arguments) throws BorkException {
         try {
-            this.taskIndex = Integer.parseInt(arguments) - 1;
+            int index = Integer.parseInt(arguments) - 1;
+            if (index < 0) {
+                throw new BorkException("Task number must be a positive integer.");
+            }
+            return index;
         } catch (NumberFormatException e) {
-            throw new BorkException("Invalid task number.");
+            throw new BorkException("Task number must be a valid integer.");
         }
-        assert taskIndex >= -1 : "Task index should not be negative";
     }
 
     /**
@@ -45,11 +58,11 @@ public class MarkCommand extends Command {
         assert tasks != null : "TaskList should not be null";
         assert ui != null : "UserInterface should not be null";
         assert storage != null : "Storage should not be null";
-        assert taskIndex >= 0 && taskIndex < tasks.size() : "Task index out of bounds";
 
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BorkException("Invalid task number.");
         }
+      
         Task task = tasks.get(taskIndex);
         task.markAsDone();
         storage.save(tasks);

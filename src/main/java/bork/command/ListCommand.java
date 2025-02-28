@@ -6,12 +6,12 @@ import bork.ui.UserInterface;
 
 /**
  * Represents a command to list all tasks in the task list.
- * Displays the curren tasks to the user.
+ * Displays the current tasks to the user.
  */
 public class ListCommand extends Command {
 
     /**
-     * Executes the list command by displalying all tasks in the task list.
+     * Executes the list command by displaying all tasks in the task list.
      *
      * @param tasks   The list of tasks to operate on.
      * @param ui      The user interface to display messages.
@@ -22,6 +22,10 @@ public class ListCommand extends Command {
     public String execute(TaskList tasks, UserInterface ui, Storage storage) {
         assert tasks != null : "TaskList should not be null";
         assert ui != null : "UserInterface should not be null";
+      
+        if (tasks.isEmpty()) {
+            return ui.showMessage("There are no tasks in your list.");
+        }
 
         return ui.showTaskList(tasks);
     }

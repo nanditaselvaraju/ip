@@ -12,22 +12,20 @@ import bork.ui.UserInterface;
  * Parses the user input to extract the task description.
  */
 public class AddToDoCommand extends Command {
-    private String description;
+    private final String description;
 
     /**
      * Constructs an {@code AddToDoCommand} by parsing the provided arguments.
      * The argument must contain a description of the ToDo task.
      *
      * @param arguments The command arguments containing the description.
-     * @throws BorkException If the description is empty.
+     * @throws BorkException If the description is empty or contains only whitespace.
      */
     public AddToDoCommand(String arguments) throws BorkException {
-        assert arguments != null : "Arguments should not be null";
-
-        if (arguments.isEmpty()) {
+        if (arguments == null || arguments.trim().isEmpty()) {
             throw new BorkException("Description of a todo cannot be empty.");
         }
-        this.description = arguments;
+        this.description = arguments.trim();
     }
 
     /**
