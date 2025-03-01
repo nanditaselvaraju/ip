@@ -22,8 +22,6 @@ public class Deadline extends Task {
      */
     public Deadline(String description, LocalDateTime deadline) {
         super(description);
-        assert description != null && !description.trim().isEmpty() : "Description should not be
-          
         this.deadline = Objects.requireNonNull(deadline, "Deadline cannot be null");
     }
 

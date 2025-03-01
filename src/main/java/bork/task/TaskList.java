@@ -1,6 +1,7 @@
 package bork.task;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Iterator;
 import java.util.List;
 
@@ -99,6 +100,24 @@ public class TaskList implements Iterable<Task> {
      */
     public boolean isValidIndex(int index) {
         return index >= 0 && index < size();
+    }
+
+    /**
+     * Sorts tasks chronologically. Events and deadlines are sorted by start time or due dates.
+     * ToDos remain unchanged at the end.
+     */
+    public void sortTasks() {
+        tasks.sort(Comparator.comparing(task -> {
+            if (task instanceof Event) {
+                return ((Event) task).getStart();
+            } else if (task instanceof Deadline) {
+                return ((Deadline) task).getDeadline();
+            }
+            return null;
+        }, Comparator.nullsLast(Comparator.naturalOrder())));
+    }
+    public List<Task> getTasks() {
+        return tasks;
     }
 
     /**

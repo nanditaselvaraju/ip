@@ -62,10 +62,10 @@ public class AddDeadlineCommand extends Command {
      * @throws BorkException If the date format is incorrect.
      */
     private LocalDateTime parseDeadline(String deadlineStr) throws BorkException {
-        assert arguments != null : "Arguments should not be null";
-
-        if (arguments.isEmpty() || !arguments.contains("/by")) {
-            throw new BorkException("Invalid format! Use: deadline <description> /by <yyyy-MM-dd HHmm>");
+        try {
+            return LocalDateTime.parse(deadlineStr, DateTimeFormatter.ofPattern(DATE_FORMAT));
+        } catch (DateTimeParseException e) {
+            throw new BorkException("Invalid date format! Use: " + DATE_FORMAT);
         }
     }
 

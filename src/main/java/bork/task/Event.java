@@ -23,7 +23,6 @@ public class Event extends Task {
      */
     public Event(String description, LocalDateTime start, LocalDateTime end) {
         super(description);
-      
         assert description != null && !description.trim().isEmpty() : "Description should not be null or empty";
         assert start != null : "Start time should not be null";
         assert end != null : "End time should not be null";
@@ -35,7 +34,6 @@ public class Event extends Task {
         if (start.isAfter(end)) {
             throw new IllegalArgumentException("Start time must be before end time.");
         }
-      
         this.start = start;
         this.end = end;
     }

@@ -58,11 +58,9 @@ public class MarkCommand extends Command {
         assert tasks != null : "TaskList should not be null";
         assert ui != null : "UserInterface should not be null";
         assert storage != null : "Storage should not be null";
-
         if (taskIndex < 0 || taskIndex >= tasks.size()) {
             throw new BorkException("Invalid task number.");
         }
-      
         Task task = tasks.get(taskIndex);
         task.markAsDone();
         storage.save(tasks);

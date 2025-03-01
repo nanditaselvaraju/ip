@@ -22,11 +22,9 @@ public class DeleteCommand extends Command {
      */
     public DeleteCommand(String arguments) throws BorkException {
         assert arguments != null : "Arguments should not be null";
-      
         if (arguments.trim().isEmpty()) {
             throw new BorkException("Task number cannot be empty.");
         }
-      
         try {
             this.taskIndex = Integer.parseInt(arguments) - 1;
         } catch (NumberFormatException e) {

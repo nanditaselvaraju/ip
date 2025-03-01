@@ -42,6 +42,8 @@ public class Parser {
             return new DeleteCommand(arguments);
         case "find":
             return new FindCommand(arguments);
+        case "sort":
+            return new SortCommand();
         default:
             throw new BorkException("Unknown command.");
         }

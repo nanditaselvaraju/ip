@@ -169,4 +169,18 @@ public class UserInterface {
         }
         return sb.toString();
     }
+
+    /**
+     * Displays the list of tasks sorted chronologically.
+     *
+     * @param tasks The task list that has been sorted.
+     * @return A formatted string showing the sorted tasks.
+     */
+    public String showSortedTasks(TaskList tasks) {
+        StringBuilder sb = new StringBuilder("Tasks sorted chronologically:\n");
+        for (int i = 0; i < tasks.size(); i++) {
+            sb.append((i + 1)).append(". ").append(tasks.get(i)).append("\n");
+        }
+        return sb.toString();
+    }
 }
